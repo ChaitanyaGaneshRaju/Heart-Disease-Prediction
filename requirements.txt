@@ -5,7 +5,7 @@ numpy==1.20.3
 pandas==1.2.4
 pandas-ml==0.6.1
 pickleshare==0.7.5
-pillow==3.4.2
+pillow==6.2.0
 plotly==4.14.3
 scikit-learn==0.17.1
 seaborn==0.7.0
