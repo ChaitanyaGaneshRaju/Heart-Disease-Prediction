@@ -2,7 +2,7 @@ altair==4.1.0
 htbuilder==0.3.0
 datetime==4.3.0
 matplotlib==3.4.2
-numpy==1.5.1
+numpy==1.20.3
 pandas==1.2.4
 pandas-ml==0.6.1
 pickleshare==0.7.5
