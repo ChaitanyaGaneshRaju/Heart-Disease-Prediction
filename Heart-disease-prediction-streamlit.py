@@ -10,7 +10,6 @@ from htbuilder import styles
 from PIL import Image
 from sklearn.preprocessing import StandardScaler
 from streamlit import uploaded_file_manager
-from streamlit.proto.RootContainer_pb2 import SIDEBAR
 
 #file data read
 heart=pd.read_csv('dataset.csv')
