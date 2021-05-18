@@ -1,6 +1,5 @@
 altair==4.1.0
-htbuilder==0.3.0
-datetime==4.3.0
+datetime==3.9.5
 matplotlib==3.4.2
 numpy==1.20.3
 pandas==1.2.4

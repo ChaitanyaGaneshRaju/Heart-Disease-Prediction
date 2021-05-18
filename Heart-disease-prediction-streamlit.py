@@ -6,7 +6,6 @@ import pandas as pd
 import altair as alt
 import seaborn as sns
 import matplotlib.pyplot as plt
-from htbuilder import styles
 from PIL import Image
 from sklearn.preprocessing import StandardScaler
 from streamlit import uploaded_file_manager
