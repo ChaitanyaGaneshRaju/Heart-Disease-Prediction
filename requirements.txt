@@ -7,7 +7,6 @@ pandas-ml==0.6.1
 pickleshare==0.7.5
 pillow==6.2.0
 plotly==4.14.3
-scikit-learn==0.17.1
+scikit-learn==0.24.2
 seaborn==0.7.0
-scikit-image==0.17.2
 streamlit==0.82.0
