@@ -9,6 +9,7 @@ import matplotlib.pyplot as plt
 from htbuilder import styles
 from PIL import Image
 from sklearn.preprocessing import StandardScaler
+from streamlit import uploaded_file_manager
 from streamlit.proto.RootContainer_pb2 import SIDEBAR
 
 #file data read
@@ -23,6 +24,13 @@ X = sc.fit_transform(X)
 def calculate_age(born):
     today = datetime.date.today()
     return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+
+
+def predict_disease_csv(csv_file):
+    with open('model-pickle-RandomForest-Svc','rb') as file:
+        model = pickle.load(file)
+    result = model.predict(csv_file)
+    return result
 
 
 def predict_disease(age,sex,cp,trestbps,chol,fbs,restecg,thalach,exang,oldpeak,slope,ca,thal):
@@ -160,9 +168,28 @@ def developers_content():
     grid2_predicted = grid2.predict(X_test)
     ''',language="python")
 
-    
+
 
     
+def upload_file():
+    uploaded_file=st.file_uploader("Choose a CSV file",type="csv",help="Fields must in the sequence - name, age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal")
+    try:
+        if uploaded_file is not None:
+            df=pd.read_csv(uploaded_file)
+            name_field=df["name"]
+            df=df.drop("name",axis=1)
+            result=predict_disease_csv(df)
+            st.subheader("Result")
+            st.write(pd.concat([name_field,pd.DataFrame(result)],axis=1).rename(columns={0:'result'}))
+    except:
+        st.error("Error in reading the file make sure it mathces the format U+0021")
+        st.markdown('''<label>For more info of format check &nbsp; </label>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/></svg>
+        <label>&nbsp; on top of the file input field.</label>'''
+        ,unsafe_allow_html=True)
+        
+
+
 #pageconfiguaration
 st.set_page_config(layout="wide")
 
@@ -193,11 +220,14 @@ st.markdown("***")
 
 st.sidebar.header("Heart Disease Prediction")
 homebutton=st.sidebar.button("Home")
+upload_file_button=st.sidebar.button("File Upload")
 developers_button=st.sidebar.button("For Developers")
 
 if homebutton:
     homepage()
 elif developers_button:
     developers_content()
+elif upload_file_button:
+    upload_file()
 else:
     homepage()
