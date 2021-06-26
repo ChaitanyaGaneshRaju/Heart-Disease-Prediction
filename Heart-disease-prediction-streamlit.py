@@ -27,6 +27,8 @@ def calculate_age(born):
 def predict_disease_csv(csv_file):
     with open('model-pickle-RandomForest-Svc','rb') as file:
         model = pickle.load(file)
+    sc2 = StandardScaler()
+    csv_file = sc2.fit_transform(csv_file)
     result = model.predict(csv_file)
     return result
 
@@ -114,8 +116,8 @@ def homepage():
             if predicted_result[0]==1:
                 st.error("Heart Disease has been detected")
             else:
-                st.success("You are safe from heart disease")
                 st.balloons()
+                st.success("You are safe from heart disease")
     else:
         uploaded_file=st.file_uploader("Choose a CSV file",type="csv",help="Fields must in the sequence - name, age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak, slope, ca, thal")
         try:
