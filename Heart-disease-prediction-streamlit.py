@@ -161,6 +161,7 @@ def developers_content():
     #Heatmap
     st.subheader("Heatmap of numeric columns")
     numeric_columns=['trestbps','chol','thalach','age','oldpeak']
+
     # create a correlation heatmap
     fig=sns.heatmap(heart[numeric_columns].corr(), cmap="YlGnBu", annot=True, linewidths=0.1)
     fig=plt.gcf()
@@ -176,8 +177,6 @@ def developers_content():
     # Training classifiers
     clf21 = RandomForestClassifier(random_state=1)
     clf23 = SVC(kernel='rbf', probability=True)
-
-    #eclf2 = VotingClassifier(estimators=[('rf', clf21), ('knn', clf22), ('svc', clf23)],voting='hard')
     eclf2 = VotingClassifier(estimators=[('rf', clf21), ('svc', clf23)],voting='hard')
 
     params = {'svc__C': [1.0, 100.0], 'rf__n_estimators': [20, 200],'rf__max_features':["log2"]}
@@ -187,6 +186,7 @@ def developers_content():
     grid2_predicted = grid2.predict(X_test)
     ''',language="python")
     st.write("[GitHub] (https://github.com/ChaitanyaGaneshRaju/Heart-Disease-Prediction) Link for this code")
+    
 
 
 #pageconfiguaration
