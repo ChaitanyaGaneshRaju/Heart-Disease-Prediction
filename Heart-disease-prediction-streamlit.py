@@ -113,7 +113,7 @@ def homepage():
 
         #onsubmit predict the result
         if submit_button and trestbps == 60 and chol == 100 and thalach == 60:
-            st.error("Enter valid data")
+            st.warning("Warning: Enter valid data")
         elif submit_button and trestbps >=60 and trestbps <=250 and chol >=100 and chol <=700 and thalach >=60 and thalach <=180:
             predicted_result=predict_disease(calculate_age(date_of_birth),sex,cp,trestbps,chol,fbs,restecg,thalach,exang,oldpeak,slope,ca,thal)
             if predicted_result[0]==1:
@@ -212,6 +212,40 @@ div.stButton > button{
 </style>
 ''',unsafe_allow_html=True)
 
+
+# st.markdown('''
+
+# <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+# <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+# <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+# <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+# <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+#     Open modal  
+# </button>
+
+# <script>
+# alert("hello")
+# </script>
+
+# <div class='modal' id='myModal'>
+#     <div class='modal-dialog'>
+#         <div class='modal-content'>
+#             <div class='modal-header'>
+#                 <h4 class='modal-title'>Modal Heading</h4>
+#                 <button type='button' class='close' data-dismiss='modal'>&times;</button>
+#             </div>
+#             <div class='modal-body'>
+#                 Modal body..
+#             </div>
+#             <div class='modal-footer'>
+#                 <button type='button' class='btn btn-danger' data-dismiss='modal'>Close</button>
+#             </div>
+#         </div>
+#     </div>
+# </div>
+
+#   ''',unsafe_allow_html=True)
 
 #Tile and the subtitle
 col1, col2,col3,col4,col5 = st.beta_columns((3,10,1,1,1))
